@@ -39,8 +39,11 @@ Store.prototype.storeName = function(row){
 Store.prototype.cookiesEachHour = function(row){
     var cookiesByHourArray = [];
     for (var i=0;i<hoursOfOperation.length;i++){
-      cookiesByHourArray.push({hour: hoursOfOperation[i],
-        cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies)});
+      cookiesByHourArray.push({
+        storeName : this.name,
+        hour: hoursOfOperation[i],
+        cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies),
+        });
       render(row,'td',cookiesByHourArray[i],'cookiesEachHour');
     }
     this.cookiesPerHourArray = cookiesByHourArray;
@@ -93,6 +96,7 @@ function tableFooter(){
   calculateTotalCookiesByHour();
   var trel = document.createElement('tr');
   var tdel = document.createElement('td');
+  tdel.textContent = 'Total';
   trel.appendChild(tdel);
   for (var i=0;i<hoursOfOperation.length;i++){
   tdel = document.createElement('td');
