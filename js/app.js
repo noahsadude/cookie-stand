@@ -5,7 +5,7 @@ var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
 
 var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-
+var controlCurve = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6]
 
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; 
@@ -42,7 +42,7 @@ Store.prototype.cookiesEachHour = function(row){
       cookiesByHourArray.push({
         storeName : this.name,
         hour: hoursOfOperation[i],
-        cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies),
+        cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies)*controlCurve[i]
         });
       render(row,'td',cookiesByHourArray[i],'cookiesEachHour');
     }
