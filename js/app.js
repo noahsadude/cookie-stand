@@ -1,14 +1,13 @@
 console.log ('I live!');
-
+//config variables
+var customersPerTosser = 20;
+var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
+var controlCurve = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 var cookies = document.getElementById('cookies');
 var cookieTossers = document.getElementById('cookieTossers');
 var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
 var totalTossersByHour = [];
-var customersPerTosser = 20;
-
-var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
-var controlCurve = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; 
@@ -136,11 +135,11 @@ function calculateTotalTossersByHour(){
   }
 }
 
-function tableFooter(variableName,functionName,array){
+function tableFooter(text,variableName,functionName,array){
   functionName();
   var trel = document.createElement('tr');
   var tdel = document.createElement('td');
-  tdel.textContent = 'Total';
+  tdel.textContent = text;
   trel.appendChild(tdel);
   for (var i=0;i<hoursOfOperation.length;i++){
   tdel = document.createElement('td');
@@ -162,7 +161,7 @@ seaTacAirport.renderStoreRow(cookies);
 seattleCenter.renderStoreRow(cookies);
 capitolHill.renderStoreRow(cookies);
 alki.renderStoreRow(cookies);
-tableFooter(cookies,calculateTotalCookiesByHour,totalCookiesByHour);
+tableFooter('Total Cookies',cookies,calculateTotalCookiesByHour,totalCookiesByHour);
 
 tableHeader(cookieTossers,'Max Tossers');
 firstAndPike.renderCookieTosserRow(cookieTossers);
@@ -170,4 +169,4 @@ seaTacAirport.renderCookieTosserRow(cookieTossers);
 seattleCenter.renderCookieTosserRow(cookieTossers);
 capitolHill.renderCookieTosserRow(cookieTossers);
 alki.renderCookieTosserRow(cookieTossers);
-tableFooter(cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
+tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);

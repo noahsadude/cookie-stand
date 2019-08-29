@@ -1,7 +1,47 @@
-td{
-  padding:10px;
+section{
+  font-family: Calibri;
+  font-weight: 100;
 }
+
+#storeSubmission{
+  text-align: center;
+  margin: 15%;
+  border: 1px black;
+}
+legend{
+  margin-bottom: 10px;
+}
+
+.quarter{
+  float:left;
+  width:24%;
+}
+
+.threeQuarters{
+  float:left;
+  width:70%;
+}
+
+table{
+  table-layout: fixed;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+tr :first-child{
+  width: 7em;
+}
+
+td{
+  padding:5px;
+  border: solid 1px black;
+  text-align: center;
+}
+
 h2{
   margin-top: 20px;
   margin-bottom: 20px;
+  text-align:center;
+  font-size: 25px;
 }
