@@ -4,6 +4,7 @@ var cookies = document.getElementById('cookies');
 var cookieTossers = document.getElementById('cookieTossers');
 var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
+var totalTossersByHour = [];
 var customersPerTosser = 20;
 
 var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm'];
@@ -125,15 +126,25 @@ function calculateTotalCookiesByHour(){
   }
 }
 
-function tableFooter(variableName){
-  calculateTotalCookiesByHour();
+function calculateTotalTossersByHour(){
+  for(var i=0;i<hoursOfOperation.length;i++){
+    var sumOfTossersAtHour = 0;
+    for(var index = 0; index<cookiesByStoreByHour.length; index++){
+      sumOfTossersAtHour += cookiesByStoreByHour[index][i].cookieTossers;
+    }
+    totalTossersByHour.push({hour:hoursOfOperation[i],quantity:sumOfTossersAtHour});
+  }
+}
+
+function tableFooter(variableName,functionName,array){
+  functionName();
   var trel = document.createElement('tr');
   var tdel = document.createElement('td');
   tdel.textContent = 'Total';
   trel.appendChild(tdel);
   for (var i=0;i<hoursOfOperation.length;i++){
   tdel = document.createElement('td');
-  tdel.textContent = totalCookiesByHour[i].quantity;
+  tdel.textContent = array[i].quantity;
   trel.appendChild(tdel);
   }
   variableName.appendChild(trel);
@@ -151,7 +162,7 @@ seaTacAirport.renderStoreRow(cookies);
 seattleCenter.renderStoreRow(cookies);
 capitolHill.renderStoreRow(cookies);
 alki.renderStoreRow(cookies);
-tableFooter(cookies);
+tableFooter(cookies,calculateTotalCookiesByHour,totalCookiesByHour);
 
 tableHeader(cookieTossers,'Max Tossers');
 firstAndPike.renderCookieTosserRow(cookieTossers);
@@ -159,3 +170,4 @@ seaTacAirport.renderCookieTosserRow(cookieTossers);
 seattleCenter.renderCookieTosserRow(cookieTossers);
 capitolHill.renderCookieTosserRow(cookieTossers);
 alki.renderCookieTosserRow(cookieTossers);
+tableFooter(cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
