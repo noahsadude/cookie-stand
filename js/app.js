@@ -1,3 +1,4 @@
+'use strict'
 console.log ('I live!');
 //config variables
 var customersPerTosser = 20;
@@ -5,6 +6,7 @@ var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm'
 var controlCurve = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 var cookies = document.getElementById('cookies');
 var cookieTossers = document.getElementById('cookieTossers');
+var storeLocations = [];
 var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
 var totalTossersByHour = [];
@@ -29,9 +31,11 @@ function Store(name,storeMin,storeMax,avgCookies) {
   this.storeMax = storeMax;
   this.avgCookies = avgCookies;
   this.cookiesPerHourArray = [];
+  storeLocations.push(this);
 }
+
 Store.prototype.pushCookies = function(){
- cookiesByStoreByHour.push(this.cookiesPerHourArray);  
+  cookiesByStoreByHour.push(this.cookiesPerHourArray);  
 }
 
 Store.prototype.storeName = function(row){
@@ -39,17 +43,17 @@ Store.prototype.storeName = function(row){
 }
 
 Store.prototype.cookiesEachHour = function(variableName){
-    var cookiesByHourArray = [];
-    for (var i=0;i<hoursOfOperation.length;i++){
-      cookiesByHourArray.push({
-        storeName : this.name,
-        hour: hoursOfOperation[i],
-        cookieTossers : 0,
-        cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies*controlCurve[i])
-        });
-      render(variableName,'td',cookiesByHourArray[i],'cookiesEachHour')
-    }
-    this.cookiesPerHourArray = cookiesByHourArray;
+  var cookiesByHourArray = [];
+  for (var i=0;i<hoursOfOperation.length;i++){
+    cookiesByHourArray.push({
+      storeName : this.name,
+      hour: hoursOfOperation[i],
+      cookieTossers : 0,
+      cookiesEachHour :Math.round(getRandomIntInclusive(this.storeMin,this.storeMax)*this.avgCookies*controlCurve[i])
+    });
+    render(variableName,'td',cookiesByHourArray[i],'cookiesEachHour')
+  }
+  this.cookiesPerHourArray = cookiesByHourArray;
 }
 
 Store.prototype.cookieTossersEachHourWithMax = function(variableName){
@@ -84,7 +88,7 @@ Store.prototype.totalCookies = function(variableName){
   render(variableName,'td',totalCookiesObj,'quantity');
 }
 
-Store.prototype.renderStoreRow = function(variableName){
+Store.prototype.renderCookieRow = function(variableName){
   var trel = document.createElement('tr');
   this.storeName(trel);
   this.cookiesEachHour(trel);
@@ -99,6 +103,7 @@ Store.prototype.renderCookieTosserRow = function(variableName){
   this.cookieTossersEachHourWithMax(trel);
   variableName.appendChild(trel);
 }
+
 
 function tableHeader(variableName,totalText){
   var trel = document.createElement('tr');
@@ -149,24 +154,30 @@ function tableFooter(text,variableName,functionName,array){
   variableName.appendChild(trel);
 }
 
-var firstAndPike = new Store('First and Pike',23,65,6.3);
-var seaTacAirport = new Store('SeaTac Airport',3,24,1.2);
-var seattleCenter = new Store('Seattle Center',11,38,3.7);
-var capitolHill = new Store('Capitol Hill',20,38,2.3);
-var alki = new Store('Alki',2,16,4.6);
+function renderAllStores(variableName,tossersOrCookies){
+  for(var i=0;i<storeLocations.length;i++){
+    if(tossersOrCookies === 'cookies'){
+    storeLocations[i].renderCookieRow(variableName);
+    } else {
+      storeLocations[i].renderCookieTosserRow(variableName);
+    }
+  }
+}
+
+new Store('First and Pike',23,65,6.3);
+new Store('SeaTac Airport',3,24,1.2);
+new Store('Seattle Center',11,38,3.7);
+new Store('Capitol Hill',20,38,2.3);
+new Store('Alki',2,16,4.6);
+
+function addStoreData(eventName){
+  
+}
 
 tableHeader(cookies,'Total');
-firstAndPike.renderStoreRow(cookies);
-seaTacAirport.renderStoreRow(cookies);
-seattleCenter.renderStoreRow(cookies);
-capitolHill.renderStoreRow(cookies);
-alki.renderStoreRow(cookies);
+renderAllStores(cookies,'cookies');
 tableFooter('Total Cookies',cookies,calculateTotalCookiesByHour,totalCookiesByHour);
 
 tableHeader(cookieTossers,'Max Tossers');
-firstAndPike.renderCookieTosserRow(cookieTossers);
-seaTacAirport.renderCookieTosserRow(cookieTossers);
-seattleCenter.renderCookieTosserRow(cookieTossers);
-capitolHill.renderCookieTosserRow(cookieTossers);
-alki.renderCookieTosserRow(cookieTossers);
+renderAllStores(cookieTossers,'tossers');
 tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
