@@ -6,6 +6,7 @@ var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm'
 var controlCurve = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 var cookies = document.getElementById('cookies');
 var cookieTossers = document.getElementById('cookieTossers');
+var storeForm = document.getElementById('storeSubmission');
 var storeLocations = [];
 var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
@@ -170,8 +171,15 @@ new Store('Seattle Center',11,38,3.7);
 new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
 
-function addStoreData(eventName){
-  
+function addStoreData(e){
+  //make the form stop doing stupid
+  e.preventDefault();
+  //get the values from the form
+  var storeSubmitName = e.target.storeSubmitName.value;
+  var storeSubmitminCustomers = e.target.storeSubmitminCustomers.value;
+  var storeSubmitmaxCustomers = e.target.storeSubmitmaxCustomers.value;
+  var storeSubmitavgCookies = e.target.storeSubmitavgCookies.value;
+  console.log(`new store name: ${storeSubmitName}, new store min customers ${storeSubmitminCustomers}, new store max customers ${storeSubmitmaxCustomers}, new store avgCookies ${storeSubmitavgCookies}`)
 }
 
 tableHeader(cookies,'Total');
@@ -181,3 +189,5 @@ tableFooter('Total Cookies',cookies,calculateTotalCookiesByHour,totalCookiesByHo
 tableHeader(cookieTossers,'Max Tossers');
 renderAllStores(cookieTossers,'tossers');
 tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
+
+storeForm.addEventListener('submit',addStoreData);
