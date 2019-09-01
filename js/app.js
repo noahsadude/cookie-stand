@@ -172,14 +172,30 @@ new Store('Capitol Hill',20,38,2.3);
 new Store('Alki',2,16,4.6);
 
 function addStoreData(e){
-  //make the form stop doing stupid
   e.preventDefault();
-  //get the values from the form
   var storeSubmitName = e.target.storeSubmitName.value;
-  var storeSubmitminCustomers = e.target.storeSubmitminCustomers.value;
-  var storeSubmitmaxCustomers = e.target.storeSubmitmaxCustomers.value;
-  var storeSubmitavgCookies = e.target.storeSubmitavgCookies.value;
-  console.log(`new store name: ${storeSubmitName}, new store min customers ${storeSubmitminCustomers}, new store max customers ${storeSubmitmaxCustomers}, new store avgCookies ${storeSubmitavgCookies}`)
+  var storeSubmitminCustomers = parseInt(e.target.storeSubmitminCustomers.value);
+  var storeSubmitmaxCustomers = parseInt(e.target.storeSubmitmaxCustomers.value);
+  var storeSubmitavgCookies = parseFloat(e.target.storeSubmitavgCookies.value);
+
+  new Store(storeSubmitName,storeSubmitminCustomers,storeSubmitmaxCustomers,storeSubmitavgCookies);
+  // reset everything except store objects?
+  var deleteCookies = document.getElementById('cookies');
+  var deleteCookieTossers = document.getElementById('cookieTossers');
+  deleteCookies.innerHTML='';
+  deleteCookieTossers.innerHTML='';
+  cookiesByStoreByHour = [];
+  totalCookiesByHour = [];
+  totalTossersByHour = [];
+
+  //rebuild tables
+  tableHeader(cookies,'Total');
+  renderAllStores(cookies,'cookies');
+  tableFooter('Total Cookies',cookies,calculateTotalCookiesByHour,totalCookiesByHour);
+
+  tableHeader(cookieTossers,'Max Tossers');
+  renderAllStores(cookieTossers,'tossers');
+  tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
 }
 
 tableHeader(cookies,'Total');

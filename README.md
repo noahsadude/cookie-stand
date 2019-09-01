@@ -15,3 +15,4 @@ To build out the full table :
 Thanks to: 
 
 [MDN for the help on random variables](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+[Gabriel McAdams for the tip on resetting the tables!](https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript)
