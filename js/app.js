@@ -12,19 +12,6 @@ var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
 var totalTossersByHour = [];
 
-function getRandomIntInclusive(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min; 
-}
-
-function render(variableName,element,anObject,keyvalueOne,keyvalueTwo){
-  var el = document.createElement(element);
-  if(keyvalueTwo === undefined){
-    el.textContent = anObject[keyvalueOne];
-  } else {
-    el.textContent = anObject[keyvalueOne]+" "+anObject[keyvalueTwo];
-  }
-  variableName.appendChild(el);
-}
 
 function Store(name,storeMin,storeMax,avgCookies) {
   this.name = name;
@@ -114,11 +101,25 @@ function tableHeader(variableName,totalText){
   tdel = document.createElement('td');
   tdel.textContent = hoursOfOperation[i];
   trel.appendChild(tdel);
-  }
-  tdel = document.createElement('td');
-  tdel.textContent = totalText;
+}
+tdel = document.createElement('td');
+tdel.textContent = totalText;
   trel.appendChild(tdel);
   variableName.appendChild(trel);
+}
+
+function getRandomIntInclusive(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
+}
+
+function render(variableName,element,anObject,keyvalueOne,keyvalueTwo){
+  var el = document.createElement(element);
+  if(keyvalueTwo === undefined){
+    el.textContent = anObject[keyvalueOne];
+  } else {
+    el.textContent = anObject[keyvalueOne]+" "+anObject[keyvalueTwo];
+  }
+  variableName.appendChild(el);
 }
 
 function calculateTotalCookiesByHour(){
@@ -148,9 +149,9 @@ function tableFooter(text,variableName,functionName,array){
   tdel.textContent = text;
   trel.appendChild(tdel);
   for (var i=0;i<hoursOfOperation.length;i++){
-  tdel = document.createElement('td');
-  tdel.textContent = array[i].quantity;
-  trel.appendChild(tdel);
+    tdel = document.createElement('td');
+    tdel.textContent = array[i].quantity;
+    trel.appendChild(tdel);
   }
   variableName.appendChild(trel);
 }
@@ -159,8 +160,8 @@ function renderAllStores(variableName,tossersOrCookies){
   for(var i=0;i<storeLocations.length;i++){
     if(tossersOrCookies === 'cookies'){
     storeLocations[i].renderCookieRow(variableName);
-    } else {
-      storeLocations[i].renderCookieTosserRow(variableName);
+  } else {
+    storeLocations[i].renderCookieTosserRow(variableName);
     }
   }
 }
@@ -178,8 +179,21 @@ function addStoreData(e){
   var storeSubmitmaxCustomers = parseInt(e.target.storeSubmitmaxCustomers.value);
   var storeSubmitavgCookies = parseFloat(e.target.storeSubmitavgCookies.value);
 
+  var index = 0;
+  for(var i = 0;i<storeLocations.length;i++){
+    if(storeLocations[i].name === storeSubmitName){
+      storeLocations[i].storeMin = storeSubmitminCustomers;
+      storeLocations[i].storeMax = storeSubmitmaxCustomers;
+      storeLocations[i].avgCookies = storeSubmitavgCookies;
+    } else {
+      console.log (`${storeSubmitName} not found at position ${i}`);
+      index ++;
+    }
+  }
+  if(index === storeLocations.length){
   new Store(storeSubmitName,storeSubmitminCustomers,storeSubmitmaxCustomers,storeSubmitavgCookies);
-  // reset everything except store objects?
+  }
+  // reset everything except store objects
   var deleteCookies = document.getElementById('cookies');
   var deleteCookieTossers = document.getElementById('cookieTossers');
   deleteCookies.innerHTML='';
