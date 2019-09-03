@@ -211,13 +211,13 @@ function addStoreData(e){
   renderAllStores(cookieTossers,'tossers');
   tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
 }
-
+//build out cookies per store table
 tableHeader(cookies,'Total');
 renderAllStores(cookies,'cookies');
 tableFooter('Total Cookies',cookies,calculateTotalCookiesByHour,totalCookiesByHour);
-
+//build out cookieTossers per store table
 tableHeader(cookieTossers,'Max Tossers');
 renderAllStores(cookieTossers,'tossers');
 tableFooter('Total Tossers',cookieTossers,calculateTotalTossersByHour,totalTossersByHour);
-
+//event listener for form submit
 storeForm.addEventListener('submit',addStoreData);
