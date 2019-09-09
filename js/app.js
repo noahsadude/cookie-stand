@@ -12,7 +12,7 @@ var cookiesByStoreByHour = [];
 var totalCookiesByHour = [];
 var totalTossersByHour = [];
 
-
+//store constructor
 function Store(name,storeMin,storeMax,avgCookies) {
   this.name = name;
   this.storeMin = storeMin;
@@ -21,11 +21,11 @@ function Store(name,storeMin,storeMax,avgCookies) {
   this.cookiesPerHourArray = [];
   storeLocations.push(this);
 }
-
+// pushing all data to the data object
 Store.prototype.pushCookies = function(){
   cookiesByStoreByHour.push(this.cookiesPerHourArray);  
 }
-
+//render store name
 Store.prototype.storeName = function(row){
   render(row,'td',this,'name');
 }
