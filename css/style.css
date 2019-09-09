@@ -1,47 +1,23 @@
-section{
-  font-family: Calibri;
-  font-weight: 100;
-}
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
 
-#storeSubmission{
-  text-align: center;
-  margin: 15%;
-  border: 1px black;
-}
-legend{
-  margin-bottom: 10px;
-}
-
-.quarter{
+.logo{
   float:left;
-  width:24%;
-}
-
-.threeQuarters{
-  float:left;
-  width:70%;
-}
-
-table{
-  table-layout: fixed;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-tr :first-child{
-  width: 7em;
-}
-
-td{
-  padding:5px;
-  border: solid 1px black;
-  text-align: center;
-}
-
-h2{
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
   text-align:center;
-  font-size: 25px;
+}
+.logo img{
+  width:250px;
+}
+
+nav ul{
+  text-align:center;
+}
+
+nav li{
+  font-family: 'Pacifico', cursive;
+  display:inline;
+  text-align: center;
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: 1.5em;
 }
