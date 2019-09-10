@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
 
+*{
+  background-color: salmon;
+}
+
+
 section{
-  font-family: Calibri;
+  font-family: Pacifico;
   font-weight: 100;
 }
 
