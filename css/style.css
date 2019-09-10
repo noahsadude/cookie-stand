@@ -25,3 +25,34 @@ nav li{
   margin-right: 1em;
   font-size: 1.5em;
 }
+
+main{
+  clear:both;
+}
+
+.first{
+  font-family: Pacifico;
+  display:block;
+  height: 100px;
+  margin: auto;
+  width: 1500px;
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+h2{
+  font-size:2em;
+}
+
+div{
+  display:block;
+  height: 400px;
+  margin: auto;
+  width: 1500px;
+}
+
+.half{
+  float:left;
+  width: 50%;
+}
